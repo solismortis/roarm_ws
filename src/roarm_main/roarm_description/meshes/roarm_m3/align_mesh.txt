@@ -1,0 +1,13 @@
+This is how I aligned the .stls
+
+Rotation around the z axis:
+-52.6376,-25.1345,53.7822
+53.3462,-23.2846,53.7985
+Vector: 105.9838,1.8499
+Angle (360-ANS): 359.0000292
+
+Rotation around the x axis:
+15.3653,-8.83248,21.2926
+15.3653,35.2919,21.2925
+Vector: 44.12438,-0.0001
+Angle (360-ANS): 

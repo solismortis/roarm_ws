@@ -149,26 +149,27 @@
 
 <link name="link5">
   <inertial>
-    <origin xyz="-0.0078 0 0.0595" rpy="0 0 0"/>
-    <mass value="0.0153928"/>
-    <inertia ixx="2.02869E-05" iyy="2.14427E-05" izz="4.39495E-06" ixy="-0.0" iyz="0" ixz="0"/>
+    <origin xyz="-0.0001403 0.0161404 0.0436813" rpy="0 0 0"/>
+    <!-- origin xyz="0 0 0" rpy="0 0 0"/ -->
+    <mass value="0.5561721109318601"/>
+    <inertia ixx="0.000485" iyy="0.000623" izz="0.000829" ixy="-8.848657096881746e-07" iyz="3.5202789913301415e-05" ixz="-2.3790504659423504e-06"/>
   </inertial>
   <visual>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <geometry>
-      <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/link5.stl" scale="0.001 0.001 0.001"/>
+      <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/visual/link5_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="gold"/>
   </visual>
   <collision>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <geometry>
-      <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/link5.stl" scale="0.001 0.001 0.001"/>
+      <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/collision/link5_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
   </collision>
 </link>
 
-<link name="gripper_link">
+<!-- link name="gripper_link">
   <inertial>
     <origin xyz="0.027 0.0027 -0.018935" rpy="0 0 0"/>
     <mass value="0.0028708" />
@@ -179,7 +180,7 @@
     <geometry>
       <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/gripper_link.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="gold"/>
   </visual>
   <collision>
     <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -187,7 +188,7 @@
       <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/gripper_link.stl" scale="0.001 0.001 0.001"/>
     </geometry>
   </collision>
-</link>
+</link -->
 
 <link name="hand_tcp"></link>
 
@@ -247,7 +248,8 @@
 </joint>
 
 <joint name="link4_to_link5" type="revolute">
-  <origin xyz="0.015147 -0.053653 0" rpy="1.5708 1.5708 0"/>
+  <!-- origin xyz="0 0 0" rpy="1.5708 1.5708 0"/ -->
+  <origin xyz="0.015147 -0.05 0" rpy="1.5708 1.5708 0"/>
   <parent link="link4"/>
   <child link="link5"/>
   <axis xyz="0.0 0.0 1.0"/>
@@ -258,7 +260,7 @@
     velocity="3.14" />
 </joint>
 
-<joint name="link5_to_gripper_link" type="revolute">
+<!-- joint name="link5_to_gripper_link" type="revolute">
   <origin xyz="0.00 0.018821 0.052035" rpy="-1.5708 -1.5708 0"/>
   <parent link="link5"/>
   <child link="gripper_link"/>
@@ -268,7 +270,7 @@
     upper="1.5"
     effort="20" 
     velocity="3.14" />
-</joint>
+</joint -->
 
 <joint name="link5_to_hand_tcp" type="fixed">
   <origin xyz="0 0 0.115428" rpy="1.5708 -1.5708 0"/>
@@ -278,3 +280,4 @@
 </joint>
 
 </robot>
+
