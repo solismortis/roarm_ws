@@ -5,3 +5,6 @@ log/
 .vscode/
 docs/_build/
 site/
+src/roarm_main/roarm_driver/roarm_driver/__pycache__/__init__.cpython-310.pyc
+src/roarm_main/roarm_driver/roarm_driver/__pycache__/roarm_driver.cpython-310.pyc
+build_first.sh
