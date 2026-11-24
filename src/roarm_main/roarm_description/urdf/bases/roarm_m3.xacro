@@ -147,7 +147,7 @@
   </collision>
 </link>
 
-<link name="link5">
+<link name="link5_1">
   <inertial>
     <origin xyz="-0.0001403 0.0161404 0.0436813" rpy="0 0 0"/>
     <!-- origin xyz="0 0 0" rpy="0 0 0"/ -->
@@ -169,26 +169,47 @@
   </collision>
 </link>
 
-<!-- link name="gripper_link">
+<link name="clamp_1">
   <inertial>
-    <origin xyz="0.027 0.0027 -0.018935" rpy="0 0 0"/>
-    <mass value="0.0028708" />
-    <inertia ixx="5.23216E-07" ixy="0" ixz="0" iyy="1.82071E-06" iyz="0" izz="1.60231E-06" />
+    <origin xyz="-0.0022451450839581995 0.014393356036471921 0.012641725210982086" rpy="0 0 0"/>
+    <mass value="0.15381179772652928"/>
+    <inertia ixx="6.028924399607782e-05" iyy="7.038714258563392e-05" izz="4.17315343246402e-05" ixy="-3.4254600321855882e-06" iyz="-2.118105479936555e-06" ixz="-4.099503004252556e-06"/>
   </inertial>
   <visual>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <geometry>
-      <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/gripper_link.stl" scale="0.001 0.001 0.001"/>
+      <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/visual/clamp_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="gold"/>
+    <material name="silver"/>
   </visual>
   <collision>
     <origin xyz="0 0 0" rpy="0 0 0"/>
     <geometry>
-      <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/gripper_link.stl" scale="0.001 0.001 0.001"/>
+      <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/collision/clamp_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
   </collision>
-</link -->
+</link>
+
+<link name="clamp_2">
+  <inertial>
+    <origin xyz="0.0022451450839581995 0.014393356036471921 0.012641725210982086" rpy="0 0 0"/>
+    <mass value="0.15381179772652928"/>
+    <inertia ixx="6.028672432876903e-05" iyy="7.038715437435056e-05" izz="4.1734047474310416e-05" ixy="-3.426101766664184e-06" iyz="2.1169750169208525e-06" ixz="4.105213994636254e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/visual/clamp_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find roarm_description)/meshes/roarm_m3/collision/clamp_2.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
 
 <link name="hand_tcp"></link>
 
@@ -251,7 +272,7 @@
   <!-- origin xyz="0 0 0" rpy="1.5708 1.5708 0"/ -->
   <origin xyz="0.015147 -0.05 0" rpy="1.5708 1.5708 0"/>
   <parent link="link4"/>
-  <child link="link5"/>
+  <child link="link5_1"/>
   <axis xyz="0.0 0.0 1.0"/>
   <limit
     lower="-3.1416"
@@ -260,21 +281,30 @@
     velocity="3.14" />
 </joint>
 
-<!-- joint name="link5_to_gripper_link" type="revolute">
-  <origin xyz="0.00 0.018821 0.052035" rpy="-1.5708 -1.5708 0"/>
-  <parent link="link5"/>
-  <child link="gripper_link"/>
-  <axis xyz="0.0 -0.0 1.0"/>
-  <limit
-    lower="0"
-    upper="1.5"
-    effort="20" 
-    velocity="3.14" />
-</joint -->
+<!-- Gripper: right clamp (primary) — STS3215 servo -->
+<joint name="right_clamp" type="prismatic">
+  <origin xyz="0 -0.0159466 0.066909" rpy="0 0 0"/>
+  <parent link="link5_1"/>
+  <child link="clamp_1"/>
+  <axis xyz="1 0 0"/>
+  <limit lower="0.0" upper="0.037" effort="1.5" velocity="0.05"/>
+  <dynamics damping="0.5" friction="0.1"/>
+</joint>
+
+<!-- Gripper: left clamp (mimic of right_clamp, inverted) -->
+<joint name="left_clamp" type="prismatic">
+  <origin xyz="0 -0.0159466 0.066909" rpy="0 0 0"/>
+  <parent link="link5_1"/>
+  <child link="clamp_2"/>
+  <axis xyz="1 0 0"/>
+  <limit lower="-0.038" upper="0.0" effort="1.5" velocity="0.05"/>
+  <dynamics damping="0.5" friction="0.1"/>
+  <mimic joint="right_clamp" multiplier="-1" offset="0"/>
+</joint>
 
 <joint name="link5_to_hand_tcp" type="fixed">
   <origin xyz="0 0 0.115428" rpy="1.5708 -1.5708 0"/>
-  <parent link="link5"/>
+  <parent link="link5_1"/>
   <child link="hand_tcp"/>
   <axis xyz="0 0 0"/>
 </joint>
